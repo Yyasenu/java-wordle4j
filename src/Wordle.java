@@ -69,7 +69,7 @@ public class Wordle {
                     }
                 }
             }
-            System.out.println("=================================");
+            System.out.println("==============================");
             List<String> finalHistory = game.getHistory();
             for (String line : finalHistory) {
                 System.out.println(line);
