@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/Sprint_7.iml" filepath="$PROJECT_DIR$/Sprint_7.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/java-wordle4j.iml" filepath="$PROJECT_DIR$/java-wordle4j.iml" />
+>>>>>>> d34d50c6aa57f82446ad79f3ae4a5f82b7e521fb
     </modules>
   </component>
 </project>
