@@ -33,7 +33,7 @@ public class Wordle {
                     for (String line : history) {
                         System.out.println(line);
                     }
-                    System.out.println("---------------------------------");
+                    System.out.println("-----------------------------");
                 }
 
                 System.out.print("Ваш ход (слово или Enter для подсказки): ");
