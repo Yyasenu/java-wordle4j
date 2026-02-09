@@ -40,6 +40,10 @@ public class WordleGame {
         return secretWord;
     }
 
+    public void setHintsUsed(int hintsUsed) {
+        this.hintsUsed = hintsUsed;
+    }
+
     public String makeGuess(String guess) throws WordNotFoundInDictionary {
         guess = normalize(guess);
 
