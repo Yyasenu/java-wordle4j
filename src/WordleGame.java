@@ -21,13 +21,24 @@ public class WordleGame {
         this.dictionary = dictionary;
         this.secretWord = dictionary.getRandomWord();
         if (secretWord.length() != WORD_LENGTH) {
-            throw new IllegalStateException("Секретное слово должно быть из " + WORD_LENGTH + " букв: " + secretWord);
+            throw new IllegalStateException(
+                    "Секретное слово должно быть из " + WORD_LENGTH + " букв: " + secretWord
+            );
         }
         this.attemptsLeft = MAX_ATTEMPTS;
     }
-    public boolean isWon() { return won; }
-    public int getAttemptsLeft() { return attemptsLeft; }
-    public String getSecretWord() { return secretWord; }
+
+    public boolean isWon() {
+        return won;
+    }
+
+    public int getAttemptsLeft() {
+        return attemptsLeft;
+    }
+
+    public String getSecretWord() {
+        return secretWord;
+    }
 
     public String makeGuess(String guess) throws WordNotFoundInDictionary {
         guess = normalize(guess);
@@ -46,9 +57,11 @@ public class WordleGame {
         }
         return hint;
     }
+
     private String normalize(String word) {
         return word.trim().toLowerCase().replace('ё', 'е');
     }
+
     private String generateHint(String guess) {
         StringBuilder hint = new StringBuilder();
         for (int i = 0; i < WORD_LENGTH; i++) {
@@ -64,6 +77,7 @@ public class WordleGame {
         }
         return hint.toString();
     }
+
     public List<String> getHistory() {
         List<String> history = new ArrayList<>();
         for (int i = 0; i < guesses.size(); i++) {
@@ -72,15 +86,18 @@ public class WordleGame {
         }
         return history;
     }
+
     public String getRandomHint() {
         if (hintsUsed >= MAX_HINTS) {
             return "Нет доступных подсказок!";
         }
         hintsUsed++;
+
         List<String> candidates = dictionary.getHintWords(secretWord, usedHints);
         if (candidates.isEmpty()) {
             return "Нет доступных подсказок!";
         }
+
         String hint = candidates.get(new Random().nextInt(candidates.size()));
         usedHints.add(hint);
         return hint;
