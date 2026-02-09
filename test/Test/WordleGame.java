@@ -31,7 +31,7 @@ class WordleGameTest {
     @Test
     void getRandomHint_limitedUses() throws Exception {
         WordleGame game = new WordleGame(createTestDictionary());
-        game.hintsUsed = 5; 
+        game.setHintsUsed(5);
         assertEquals("Нет доступных подсказок!", game.getRandomHint());
     }
 }
