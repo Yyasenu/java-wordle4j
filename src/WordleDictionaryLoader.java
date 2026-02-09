@@ -4,6 +4,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class WordleDictionaryLoader {
+    private static final int WORD_LENGTH = 5;
 
     public WordleDictionary loadFromResources(String resourceName) throws IOException {
         URL resourceUrl = getClass().getClassLoader().getResource(resourceName);
@@ -20,7 +21,7 @@ public class WordleDictionaryLoader {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 String normalized = normalize(line.trim());
-                if (normalized.length() == 5) {
+                if (normalized.length() == WORD_LENGTH) {
                     words.add(normalized);
                 }
             }

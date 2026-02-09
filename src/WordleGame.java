@@ -4,28 +4,30 @@ import java.io.IOException;
 import java.util.*;
 
 public class WordleGame {
+    private static final int WORD_LENGTH = 5;
+    private static final int MAX_ATTEMPTS = 6;
+    private static final int MAX_HINTS = 2;
+
     private final WordleDictionary dictionary;
     private final String secretWord;
     private int attemptsLeft;
     private final List<String> guesses = new ArrayList<>();
     private final List<String> hints = new ArrayList<>();
     private final Set<String> usedHints = new HashSet<>();
-    int hintsUsed = 0;
+    private int hintsUsed = 0;
     private boolean won = false;
-    private boolean lost = false;
 
     public WordleGame(WordleDictionary dictionary) throws IOException {
         this.dictionary = dictionary;
         this.secretWord = dictionary.getRandomWord();
-        if (secretWord.length() != 5) {
-            throw new IllegalStateException("Секретное слово должно быть из 5 букв: " + secretWord);
+        if (secretWord.length() != WORD_LENGTH) {
+            throw new IllegalStateException("Секретное слово должно быть из " + WORD_LENGTH + " букв: " + secretWord);
         }
-        this.attemptsLeft = 6;
+        this.attemptsLeft = MAX_ATTEMPTS;
     }
-
-
     public boolean isWon() { return won; }
-    public boolean isLost() { return lost; }
+    public int getAttemptsLeft() { return attemptsLeft; }
+    public String getSecretWord() { return secretWord; }
 
     public String makeGuess(String guess) throws WordNotFoundInDictionary {
         guess = normalize(guess);
@@ -36,24 +38,20 @@ public class WordleGame {
         guesses.add(guess);
         String hint = generateHint(guess);
         hints.add(hint);
+
         if (hint.equals("+++++")) {
             won = true;
+        } else {
+            attemptsLeft--;
         }
-        attemptsLeft--;
-        if (attemptsLeft <= 0 && !won) {
-            lost = true;
-        }
-
         return hint;
     }
-
     private String normalize(String word) {
         return word.trim().toLowerCase().replace('ё', 'е');
     }
-
     private String generateHint(String guess) {
         StringBuilder hint = new StringBuilder();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < WORD_LENGTH; i++) {
             char g = guess.charAt(i);
             char s = secretWord.charAt(i);
             if (g == s) {
@@ -66,7 +64,6 @@ public class WordleGame {
         }
         return hint.toString();
     }
-
     public List<String> getHistory() {
         List<String> history = new ArrayList<>();
         for (int i = 0; i < guesses.size(); i++) {
@@ -75,9 +72,8 @@ public class WordleGame {
         }
         return history;
     }
-
     public String getRandomHint() {
-        if (hintsUsed >= 5) {
+        if (hintsUsed >= MAX_HINTS) {
             return "Нет доступных подсказок!";
         }
         hintsUsed++;
@@ -85,13 +81,8 @@ public class WordleGame {
         if (candidates.isEmpty()) {
             return "Нет доступных подсказок!";
         }
-
         String hint = candidates.get(new Random().nextInt(candidates.size()));
         usedHints.add(hint);
-        hintsUsed++;
         return hint;
     }
-
-    public int getAttemptsLeft() { return attemptsLeft; }
-    public String getSecretWord() { return secretWord; }
 }

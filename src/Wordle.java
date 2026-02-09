@@ -27,7 +27,7 @@ public class Wordle {
             System.out.println("=================================");
 
 
-            while (!game.isWon() && !game.isLost()) {
+            while (!game.isWon() && game.getAttemptsLeft() > 0) {
                 List<String> history = game.getHistory();
                 if (!history.isEmpty()) {
                     for (String line : history) {

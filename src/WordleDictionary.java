@@ -1,13 +1,14 @@
 import java.util.*;
 
 public class WordleDictionary {
+    private static final int WORD_LENGTH = 5;
     final Set<String> words;
 
     public WordleDictionary(Set<String> words) {
         this.words = new HashSet<>();
         for (String word : words) {
-            if (word.trim().length() != 5) {
-                throw new IllegalArgumentException("Слово должно быть из 5 букв: " + word);
+            if (word.trim().length() != WORD_LENGTH) {
+                throw new IllegalArgumentException("Слово должно быть из " + WORD_LENGTH + " букв: " + word);
             }
             this.words.add(word.trim().toLowerCase());
         }
